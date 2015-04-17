@@ -71,6 +71,8 @@ Attach a listener which is executed at most once.
 
 **Alias:** `trigger`
 
+Emit the specified type event and pass some arguments to the listener optionally.
+
 ### listeners(type)
 
 Return the given type listeners or all listeners or an empty array.
