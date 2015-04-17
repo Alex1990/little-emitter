@@ -7,5 +7,10 @@ gulp.task('default', function() {
     .pipe(plugins.jshint.reporter('default'))
     .pipe(plugins.uglify())
     .pipe(plugins.rename({suffix: '.min'}))
-    .pipe(gulp.dest('.'))
+    .pipe(gulp.dest('.'));
+});
+
+gulp.task('test', function() {
+  return gulp.src('./test/test.js', {read: false})
+            .pipe(plugins.mocha());
 });

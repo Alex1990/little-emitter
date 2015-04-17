@@ -123,7 +123,7 @@
     var listeners = [];
     for (var type in events) {
       if (events.hasOwnProperty(type)) {
-        listeners.concat(events[type]);
+        listeners = listeners.concat(events[type]);
       }
     }
     return listeners;
