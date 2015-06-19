@@ -1,7 +1,8 @@
 {
   "name": "little-emitter",
+  "version": "0.1.3",
   "description": "A tiny event emitter for node and browser",
-  "version": "0.1.2",
+  "main": "emitter.js",
   "author": {
     "name": "Alex Chao",
     "email": "alexchao1990@gmail.com"
