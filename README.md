@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/Alex1990/little-emitter.svg?branch=master)](https://travis-ci.org/Alex1990/little-emitter)
 
-A tiny event emitter for node and browser.
+A tiny event emitter for node and the browser.
 
 ## Usage
 

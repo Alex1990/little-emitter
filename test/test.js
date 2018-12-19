@@ -1,4 +1,4 @@
-var Emitter = require('../emitter');
+var Emitter = require('..');
 var should = require('should');
 
 describe('Emitter', function(){
@@ -20,7 +20,7 @@ describe('Emitter', function(){
         calls.push(this.name);
       });
       obj.emit('foo');
-      
+
       calls.should.eql(['Object']);
     })
   })
@@ -199,7 +199,7 @@ describe('API', function(){
     })
     it('should return an empty array when no event', function(){
       var emitter = new Emitter;
-      
+
       var listeners = emitter.listeners();
 
       listeners.should.eql([]);
