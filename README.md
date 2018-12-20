@@ -1,8 +1,15 @@
 # little-emitter
 
 [![Build Status](https://travis-ci.org/Alex1990/little-emitter.svg?branch=master)](https://travis-ci.org/Alex1990/little-emitter)
+[![npm](https://img.shields.io/npm/v/little-emitter.svg)](https://www.npmjs.com/package/little-emitter)
 
 A tiny event emitter for node and the browser.
+
+## Install
+
+```bash
+npm install little-emitter --save
+```
 
 ## Usage
 
@@ -37,12 +44,6 @@ foo.on('say', function(){ console.log(this.name); });
 foo.emit('say'); // "Foo"
 ```
 
-## Install
-
-```bash
-npm install little-emitter --save
-```
-
 ## API
 
 The `Emitter` instance methods:
@@ -73,10 +74,12 @@ Attach a listener which is executed at most once.
 
 Emit the specified type event and pass some arguments to the listener optionally.
 
-### listeners(type)
+### getListeners(type)
+
+**Alias:** `listeners`
 
 Return the given type listeners or all listeners or an empty array.
 
 ## License
 
-Under the MIT license.
+MIT.
