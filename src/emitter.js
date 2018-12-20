@@ -1,59 +1,30 @@
-/*!
- * little-emitter - A tiny event emitter for node and the browser.
- * https://github.com/Alex1990/little-emitter
- * Under the MIT license | (c)2015-2018 Alex Chao
- */
+import { mixin, flattenEvents } from './util';
 
-// Shorthand
+const EVENTS_KEY = '@events';
+const slice = [].slice;
 let proto;
 
-// Helper functions
-// ---------------
-
-function mixin(obj1, obj2) {
-  for (const p in obj2) {
-    if (Object.prototype.hasOwnProperty.call(obj2, p)) {
-      obj1[p] = obj2[p];
-    }
-  }
-  return obj1;
-}
-
-// Extract all event listeners to an array.
-function flattenEvents(events) {
-  let listeners = [];
-  for (const type in events) {
-    if (events.hasOwnProperty(type)) {
-      listeners = listeners.concat(events[type]);
-    }
-  }
-  return listeners;
-}
-
 // Constructor to initialize an `Emitter` instance.
-export default function Emitter(obj) {
+function Emitter(obj) {
   if (obj) {
-    obj._events = {};
+    obj[EVENTS_KEY] = {};
     return mixin(obj, proto);
   }
-  this._events = {};
+  this[EVENTS_KEY] = {};
 }
 
-// Shorthand
 proto = Emitter.prototype;
 
 // Add a listener for a given event.
-proto.on =
-proto.addEventListener = function(type, fn) {
-  (this._events[type] = this._events[type] || []).push(fn);
+proto.on = function on(type, fn) {
+  (this[EVENTS_KEY][type] = this[EVENTS_KEY][type] || []).push(fn);
   return this;
 };
 
 // Add a listener for a given event.
 // This listener can be called once, then will be removed.
-proto.one =
-proto.once = function(type, fn) {
-  const wrapper = function() {
+proto.once = function once(type, fn) {
+  const wrapper = function wrapper() {
     this.off(type, wrapper);
     fn.apply(this, arguments);
   };
@@ -65,15 +36,13 @@ proto.once = function(type, fn) {
 // Remove all event listeners
 // or remove the given event listeners
 // or remove the specified listener for the given event.
-proto.off =
-proto.removeAllListners =
-proto.removeEventListener = function(type, fn) {
-  const events = this._events[type];
+proto.off = function off(type, fn) {
+  const events = this[EVENTS_KEY][type];
 
   if (arguments.length === 0) {
-    this._events = {};
+    this[EVENTS_KEY] = {};
   } else if (arguments.length === 1) {
-    delete this._events[type];
+    delete this[EVENTS_KEY][type];
   } else if (events) {
     let listener;
     for (let i = 0; i < events.length; i++) {
@@ -83,28 +52,36 @@ proto.removeEventListener = function(type, fn) {
         break;
       }
     }
-    if (!events.length) delete this._events[type];
+    if (!events.length) delete this[EVENTS_KEY][type];
   }
   return this;
 };
 
 // Trigger a given event with optional arguments.
-proto.emit =
-proto.trigger = function(type, ...args) {
-  const events = this._events[type];
+proto.emit = function emit(type) {
+  const events = this[EVENTS_KEY][type];
   if (!events) return false;
 
-  for (const event of events) {
-    event.apply(this, args);
+  for (let i = 0; i < events.length; i++) {
+    events[i].apply(this, slice.call(arguments, 1));
   }
   return true;
 };
 
 // Get the event listeners or all event listeners.
-proto.listeners = function(type) {
+proto.getListeners = function getListeners(type) {
   if (type) {
-    return this._events[type] || [];
-  } else {
-    return flattenEvents(this._events);
+    return this[EVENTS_KEY][type] || [];
   }
+  return flattenEvents(this[EVENTS_KEY]);
 };
+
+// Aliases
+proto.addEventListener = proto.on;
+proto.removeEventListener = proto.off;
+proto.removeEventListeners = proto.off;
+proto.one = proto.once;
+proto.trigger = proto.emit;
+proto.listeners = proto.getListeners;
+
+export default Emitter;

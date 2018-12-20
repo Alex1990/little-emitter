@@ -1,0 +1,22 @@
+{
+  "extends": "airbnb-base",
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "func-names": [0],
+    "no-param-reassign": [0],
+    "no-plusplus": [0],
+    "no-restricted-syntax": [0],
+    "prefer-arrow-callback": [0],
+    "prefer-destructuring": [0],
+    "prefer-rest-params": [0],
+    "space-before-function-paren": [2, {
+      "anonymous": "never",
+      "named": "never",
+      "asyncArrow": "always",
+    }],
+  }
+}
