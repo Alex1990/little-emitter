@@ -2,7 +2,8 @@
 node_modules
 *.log
 *.swp
-/emitter.*
-/dist
+emitter.*
+dist
+es
 package-lock.json
 yarn.lock

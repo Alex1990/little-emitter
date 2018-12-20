@@ -3,27 +3,27 @@
   "version": "0.1.4",
   "description": "A tiny event emitter for node and the browser",
   "main": "dist/emitter.js",
-  "module": "dist/emitter.mjs",
+  "module": "es/index.js",
   "umd": "dist/emitter.js",
   "umd:main": "dist/emitter.js",
-  "source": "src/emitter.js",
+  "source": "src/index.js",
   "author": {
     "name": "Alex Chao",
     "email": "alexchao1990@gmail.com"
   },
   "scripts": {
-    "build": "npm run build:esm && npm run build:umd && npm run build:umd:min",
-    "build:esm": "microbundle --no-sourcemap --strict --format es --no-compress",
-    "build:umd": "microbundle --no-sourcemap --strict --format umd --name Emitter --no-compress",
+    "clean": "rimraf dist",
+    "build": "npm run clean && npm run build:esm && npm run build:umd && npm run build:umd:min",
+    "build:esm": "microbundle --no-sourcemap --strict --format es --no-compress --output es/index.js",
+    "build:umd": "microbundle --no-sourcemap --strict --format umd --name Emitter --no-compress --output dist/emitter.js",
     "build:umd:min": "microbundle --no-sourcemap --strict --format umd --name Emitter --output dist/emitter.min.js",
     "lint": "eslint ./src ./test",
     "prepublishOnly": "npm run test",
     "test": "npm run build && npm run lint && mocha ./test"
   },
   "files": [
-    "dist/emitter.js",
-    "dist/emitter.min.js",
-    "dist/emitter.mjs"
+    "dist",
+    "es"
   ],
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     "eslint-plugin-import": "^2.14.0",
     "microbundle": "^0.9.0",
     "mocha": "^5.2.0",
+    "rimraf": "^2.6.2",
     "should": "^13.2.3"
   },
   "keywords": [
