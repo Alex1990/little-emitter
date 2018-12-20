@@ -2,8 +2,8 @@
 node_modules
 *.log
 *.swp
-emitter.*
 dist
 es
+coverage
 package-lock.json
 yarn.lock
