@@ -1,6 +1,6 @@
 {
   "name": "little-emitter",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A tiny event emitter for node and the browser",
   "main": "dist/emitter.js",
   "module": "es/index.js",
@@ -8,6 +8,12 @@
   "umd:main": "dist/emitter.js",
   "source": "src/index.js",
   "types": "index.d.ts",
+  "files": [
+    "dist",
+    "lib",
+    "es",
+    "index.d.ts"
+  ],
   "author": {
     "name": "Alex Chao",
     "email": "alexchao1990@gmail.com"
