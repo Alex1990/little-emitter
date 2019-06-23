@@ -1,6 +1,6 @@
 {
   "name": "little-emitter",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A tiny event emitter for node and the browser",
   "main": "dist/emitter.js",
   "module": "es/index.js",
@@ -29,10 +29,6 @@
     "test": "npm run build && npm run lint && jest",
     "test:coverage": "npm run build && npm run lint && jest --coverage"
   },
-  "files": [
-    "dist",
-    "es"
-  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/Alex1990/little-emitter.git"
