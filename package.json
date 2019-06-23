@@ -7,6 +7,7 @@
   "umd": "dist/emitter.js",
   "umd:main": "dist/emitter.js",
   "source": "src/index.js",
+  "types": "index.d.ts",
   "author": {
     "name": "Alex Chao",
     "email": "alexchao1990@gmail.com"
