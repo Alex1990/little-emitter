@@ -1,6 +1,6 @@
 {
   "name": "little-emitter",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "A tiny event emitter for node and the browser",
   "main": "dist/emitter.js",
   "module": "es/index.js",
