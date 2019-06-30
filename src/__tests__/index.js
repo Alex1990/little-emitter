@@ -62,6 +62,36 @@ describe('API', () => {
 
       expect(calls).toEqual(['one', 1]);
     });
+
+    test('should not be executed when the listener is triggered in the listener', () => {
+      const emitter = new Emitter();
+      const calls = [];
+
+      emitter.once('foo', function(val) {
+        calls.push('one', val);
+        emitter.emit('foo', 2);
+      });
+
+      emitter.emit('foo', 1);
+      expect(calls).toEqual(['one', 1]);
+    });
+
+    test('should be executed one by one, but only once, when two listeners are bound', () => {
+      const emitter = new Emitter();
+      const calls = [];
+
+      emitter.once('foo', function(val) {
+        calls.push('one', val);
+      });
+      emitter.once('foo', function(val) {
+        calls.push('two', val);
+      });
+
+      emitter.emit('foo', 1);
+      emitter.emit('foo', 2);
+
+      expect(calls).toEqual(['one', 1, 'two', 1]);
+    });
   });
 
   describe('off(type, fn)', () => {

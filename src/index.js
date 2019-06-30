@@ -24,13 +24,8 @@ proto.on = function on(type, fn) {
 // Add a listener for a given event.
 // This listener can be called once, then will be removed.
 proto.once = function once(type, fn) {
-  const wrapper = function wrapper() {
-    this.off(type, wrapper);
-    fn.apply(this, arguments);
-  };
-
-  wrapper.fn = fn;
-  return this.on(type, wrapper);
+  fn.$once = true;
+  return this.on(type, fn);
 };
 
 // Remove all event listeners
@@ -47,7 +42,7 @@ proto.off = function off(type, fn) {
     let listener;
     for (let i = 0; i < events.length; i++) {
       listener = events[i];
-      if (listener === fn || listener.fn === fn) {
+      if (listener === fn) {
         events.splice(i, 1);
         break;
       }
@@ -59,11 +54,16 @@ proto.off = function off(type, fn) {
 
 // Trigger a given event with optional arguments.
 proto.emit = function emit(type) {
-  const events = this[EVENTS_KEY][type];
-  if (!events) return false;
+  const listeners = this[EVENTS_KEY][type];
+  if (!listeners) return false;
+  const shallowListeners = listeners.slice();
 
-  for (let i = 0; i < events.length; i++) {
-    events[i].apply(this, slice.call(arguments, 1));
+  for (let i = 0; i < shallowListeners.length; i++) {
+    const listener = shallowListeners[i];
+    if (listener.$once) {
+      this.off(type, listener);
+    }
+    listener.apply(this, slice.call(arguments, 1));
   }
   return true;
 };
