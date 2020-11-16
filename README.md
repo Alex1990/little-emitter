@@ -1,6 +1,6 @@
 # little-emitter
 
-[![Build Status](https://travis-ci.org/Alex1990/little-emitter.svg?branch=master)](https://travis-ci.org/Alex1990/little-emitter)
+[![Build Status](https://travis-ci.com/Alex1990/little-emitter.svg?branch=master)](https://travis-ci.com/Alex1990/little-emitter)
 [![npm](https://img.shields.io/npm/v/little-emitter.svg)](https://www.npmjs.com/package/little-emitter)
 
 A tiny event emitter for node and the browser.
