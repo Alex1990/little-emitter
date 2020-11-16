@@ -24,8 +24,11 @@ proto.on = function on(type, fn) {
 // Add a listener for a given event.
 // This listener can be called once, then will be removed.
 proto.once = function once(type, fn) {
-  fn.$once = true;
-  return this.on(type, fn);
+  const wrapped = function wrapped() {
+    return fn.apply(this, arguments);
+  };
+  wrapped.$once = true;
+  return this.on(type, wrapped);
 };
 
 // Remove all event listeners

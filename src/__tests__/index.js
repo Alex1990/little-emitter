@@ -92,6 +92,25 @@ describe('API', () => {
 
       expect(calls).toEqual(['one', 1, 'two', 1]);
     });
+
+    test('should not affect the on method', () => {
+      const emitter = new Emitter();
+      let calls = [];
+      const log = (...args) => calls.push(...args);
+
+      emitter.once('foo', log);
+      emitter.emit('foo', 'once', 1);
+      emitter.emit('foo', 'once', 2);
+
+      expect(calls).toEqual(['once', 1]);
+
+      calls = [];
+
+      emitter.on('foo', log);
+      emitter.emit('foo', 'on', 1);
+      emitter.emit('foo', 'on', 2);
+      expect(calls).toEqual(['on', 1, 'on', 2]);
+    });
   });
 
   describe('off(type, fn)', () => {
